@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BasketsModule } from './baskets/baskets.module';
+import { BasketModule } from './basket/basket.module';
 import { HomeModule } from './home/home.module';
 import { ProductsModule } from './products/products.module';
 
@@ -10,7 +10,7 @@ import { ProductsModule } from './products/products.module';
   declarations: [],
   imports: [
     CommonModule,
-    BasketsModule,
+    BasketModule,
     HomeModule,
     ProductsModule
   ]
