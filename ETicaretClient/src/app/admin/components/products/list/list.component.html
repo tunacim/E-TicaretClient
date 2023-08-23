@@ -2,8 +2,8 @@
   <table mat-table [dataSource]="dataSource">
 
 
-    <ng-container matColumnDef="Name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
+    <ng-container matColumnDef="Name" >
+      <th mat-header-cell *matHeaderCellDef > Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
@@ -30,6 +30,18 @@
       <th mat-header-cell *matHeaderCellDef> UpdatedDate </th>
       <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="Edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"> <img src="./../../../../../assets/Edit.png" width="20" height="20"></td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+ <td mat-cell  [id]="element.id" *matCellDef="let element" appDelete  (callback)="getProducts()"> <!-- <img src="./../../../../../assets/Delete.png" width="20" height="20" data-id="{{element.id}}" (click)="delete(element.id,$event)"></td> -->
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
