@@ -1,4 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent, deleteState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
@@ -12,7 +14,8 @@ export class DeleteDirective {
   constructor(
   private element:ElementRef,
   private _renderer:Renderer2,
-  private productService:ProductService
+  private productService:ProductService,
+  public dialog: MatDialog
   ) {
     const img=_renderer.createElement("img")
     img.setAttribute("src","../../../assets/Delete.png")
@@ -27,13 +30,27 @@ export class DeleteDirective {
 
    @HostListener("click")
     async onClick(){
-     const td :HTMLTableCellElement=this.element.nativeElement
+      this.openDialog(async ()=>{
+        const td :HTMLTableCellElement=this.element.nativeElement
      await this.productService.delete(this.id)
-     $(td.parentElement).fadeOut(2000,()=>{
+     $(td.parentElement).fadeOut(731,()=>{
        this.callback.emit()
-     })
+      })
+    })
 
    }
+   openDialog(afterClosed:any): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: deleteState.Yes,
+    });
 
-
+    dialogRef.afterClosed().subscribe(result => {
+   if(result==deleteState.Yes){
+      afterClosed()
+   }
+    });
+  }
 }
+
+
+
